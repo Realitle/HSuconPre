@@ -1,0 +1,11 @@
+numpy==1.26.4        # 降级到兼容版本
+numba==0.61.0        # 支持 Python 3.12 的最新版本
+shap==0.45.0         # 降低 shap 版本以兼容 numba
+ase~=3.24.0
+joblib~=1.4.2
+matminer~=0.9.2
+matplotlib~=3.10.1
+pandas~=2.2.3
+pymatgen~=2025.2.18
+streamlit~=1.43.1
+xgboost~=2.1.4
