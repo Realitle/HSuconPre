@@ -1,19 +1,17 @@
-import streamlit as st
-import joblib
-import pandas as pd
-from joblib import load
-from tempfile import TemporaryDirectory
-import xgboost
-from pymatgen.core.composition import Composition
-from ase.io import read
 import os
+import shap
+import joblib
+import xgboost  # noqa: F401
+import pandas as pd
+import streamlit as st
+from ase.io import read
+from joblib import load
 import matplotlib.pyplot as plt
+from tempfile import TemporaryDirectory
+from pymatgen.core.composition import Composition
 from matminer.featurizers.composition import (
     TMetalFraction, Stoichiometry, BandCenter, ElementProperty, Meredig
 )
-import shap
-
-print("XGBoost version:", xgboost.__version__)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -37,7 +35,6 @@ def data_process(uploaded_files, model_path=os.path.join(BASE_DIR, "xgb_model.jo
     )
     feature_columns = template_df.columns[3:].tolist()
 
-    # 处理上传的CIF文件
     features = []
     with TemporaryDirectory() as tmpdir:
         for uploaded_file in uploaded_files:
@@ -54,7 +51,6 @@ def data_process(uploaded_files, model_path=os.path.join(BASE_DIR, "xgb_model.jo
             aligned_features = temp_series.reindex(range(len(feature_columns)), fill_value=0).values
             features.append(aligned_features)
 
-    # 生成最终DataFrame
     df_features = pd.DataFrame(features, columns=feature_columns)
     
     explainer = shap.TreeExplainer(model)
