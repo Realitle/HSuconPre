@@ -11,8 +11,7 @@ import matplotlib.pyplot as plt
 from matminer.featurizers.composition import (
     TMetalFraction, Stoichiometry, BandCenter, ElementProperty, Meredig
 )
-os.system("pip install shap")
-import shap  # noqa: E402
+import shap
 
 print("XGBoost version:", xgboost.__version__)
 
